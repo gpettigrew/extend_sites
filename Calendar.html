@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Simple Calendar</title>
-<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <title>Simple Custom Calendar</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div id="calendar"></div>
-
-<script src="calendar.js"></script>
+    <div id="controls">
+        <select id="monthSelect"></select>
+        <select id="yearSelect"></select>
+        <button onclick="updateCalendar()">Go</button>
+    </div>
+    <div id="calendar"></div>
+    <script src="calendar.js"></script>
 </body>
 </html>
