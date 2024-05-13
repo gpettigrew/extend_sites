@@ -1,10 +1,21 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 10px;
+}
+
+#controls {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
 #calendar {
     max-width: 600px;
-    margin: 20px auto;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-gap: 10px;
+    grid-gap: 5px;
 }
+
 .day {
     padding: 10px;
     background: #f4f4f4;
