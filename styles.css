@@ -21,3 +21,12 @@ body {
     background: #f4f4f4;
     text-align: center;
 }
+
+.header {
+    font-weight: bold;
+    background: #ddd;
+}
+
+.padding {
+    background: none;
+}
