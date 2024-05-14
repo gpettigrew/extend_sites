@@ -7,12 +7,10 @@
 </head>
 <body>
     <div id="controls">
-        <select id="monthSelect"></select>
-        <select id="yearSelect"></select>
-        <button onclick="updateCalendar()">Go</button>
+        <select id="monthSelect" onchange="updateCalendar()"></select>
+        <select id="yearSelect" onchange="updateCalendar()"></select>
     </div>
     <div id="calendar"></div>
     <script src="calendar.js"></script>
 </body>
 </html>
-
