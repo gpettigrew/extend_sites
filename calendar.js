@@ -9,6 +9,10 @@ function populateDropdowns() {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
 
+    // Clear existing options if needed
+    monthSelect.innerHTML = '';
+    yearSelect.innerHTML = '';
+
     // Populate the month dropdown
     for (let i = 0; i < 12; i++) {
         const option = document.createElement('option');
