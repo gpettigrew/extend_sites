@@ -29,11 +29,13 @@ function populateDropdowns() {
 
     monthSelect.value = currentMonth;
     yearSelect.value = currentYear;
+    monthSelect.addEventListener('change', updateCalendar);
+    yearSelect.addEventListener('change', updateCalendar);
 }
 
 function updateCalendar() {
-    const month = document.getElementById('monthSelect').value;
-    const year = document.getElementById('yearSelect').value;
+    const month = parseInt(document.getElementById('monthSelect').value);
+    const year = parseInt(document.getElementById('yearSelect').value);
     const calendar = document.getElementById('calendar');
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
@@ -47,7 +49,6 @@ function updateCalendar() {
         calendar.appendChild(dayHeader);
     });
 
-    // Calculate the start date to fill the calendar
     const firstDayOfMonth = new Date(year, month, 1);
     const firstDay = new Date(firstDayOfMonth);
     firstDay.setDate(firstDayOfMonth.getDate() - firstDayOfMonth.getDay()); // Adjust to the first Sunday
@@ -60,7 +61,7 @@ function updateCalendar() {
         dayCell.dataset.date = firstDay.toISOString().slice(0, 10); // ISO string format
         dayCell.onclick = () => selectDate(new Date(firstDay));
 
-        if (firstDay.getMonth() !== parseInt(month)) {
+        if (firstDay.getMonth() !== month) {
             dayCell.classList.add('not-current-month');
         }
 
@@ -72,9 +73,12 @@ function updateCalendar() {
 }
 
 function selectDate(date) {
-    if (!selectedDates.start || (selectedDates.start && selectedDates.end)) {
+    if (!selectedDates.start || selectedDates.end) {
         selectedDates.start = date;
         selectedDates.end = null;
+    } else if (date < selectedDates.start) {
+        selectedDates.end = selectedDates.start;
+        selectedDates.start = date;
     } else {
         selectedDates.end = date;
     }
