@@ -11,7 +11,6 @@ function populateDropdowns() {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
 
-    // Populate the month dropdown
     for (let i = 0; i < 12; i++) {
         const option = document.createElement('option');
         option.value = i;
@@ -19,7 +18,6 @@ function populateDropdowns() {
         monthSelect.appendChild(option);
     }
 
-    // Populate the year dropdown from current year - 10 to current year + 10
     for (let i = currentYear - 10; i <= currentYear + 10; i++) {
         const option = document.createElement('option');
         option.value = i;
@@ -39,9 +37,8 @@ function updateCalendar() {
     const calendar = document.getElementById('calendar');
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-    calendar.innerHTML = '';  // Clear the calendar
+    calendar.innerHTML = '';
 
-    // Create day of week headers
     daysOfWeek.forEach(day => {
         const dayHeader = document.createElement('div');
         dayHeader.className = 'day header';
@@ -51,15 +48,14 @@ function updateCalendar() {
 
     const firstDayOfMonth = new Date(year, month, 1);
     const firstDay = new Date(firstDayOfMonth);
-    firstDay.setDate(firstDayOfMonth.getDate() - firstDayOfMonth.getDay()); // Adjust to the first Sunday
+    firstDay.setDate(firstDayOfMonth.getDate() - firstDayOfMonth.getDay());
 
-    // Generate one month's view, plus overflow to fill weeks
-    for (let i = 0; i < 42; i++) {  // Always display 6 weeks
+    for (let i = 0; i < 42; i++) {
         const dayCell = document.createElement('div');
         dayCell.className = 'day';
         dayCell.textContent = firstDay.getDate();
-        dayCell.dataset.date = firstDay.toISOString().slice(0, 10); // ISO string format
-        dayCell.onclick = () => selectDate(new Date(firstDay));
+        dayCell.dataset.date = firstDay.toISOString().slice(0, 10);
+        dayCell.onclick = () => selectDate(new Date(firstDay.getTime()));
 
         if (firstDay.getMonth() !== month) {
             dayCell.classList.add('not-current-month');
@@ -76,6 +72,9 @@ function selectDate(date) {
     if (!selectedDates.start || selectedDates.end) {
         selectedDates.start = date;
         selectedDates.end = null;
+        highlightRange();
+    } else if (date.getTime() === selectedDates.start.getTime()) {
+        selectedDates.start = selectedDates.end = null; // Reset if the same date is clicked
     } else if (date < selectedDates.start) {
         selectedDates.end = selectedDates.start;
         selectedDates.start = date;
