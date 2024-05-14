@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     updateCalendar();
 });
 
+let selectedDates = { start: null, end: null };
+
 function populateDropdowns() {
     const monthSelect = document.getElementById('monthSelect');
     const yearSelect = document.getElementById('yearSelect');
@@ -55,10 +57,40 @@ function updateCalendar() {
         const dayCell = document.createElement('div');
         dayCell.className = 'day';
         dayCell.textContent = firstDay.getDate();
+        dayCell.dataset.date = firstDay.toISOString().slice(0, 10); // ISO string format
+        dayCell.onclick = () => selectDate(new Date(firstDay));
+
         if (firstDay.getMonth() !== parseInt(month)) {
-            dayCell.classList.add('not-current-month');  // Style days not in the current month differently
+            dayCell.classList.add('not-current-month');
         }
+
         calendar.appendChild(dayCell);
         firstDay.setDate(firstDay.getDate() + 1);
     }
+
+    highlightRange();
+}
+
+function selectDate(date) {
+    if (!selectedDates.start || (selectedDates.start && selectedDates.end)) {
+        selectedDates.start = date;
+        selectedDates.end = null;
+    } else {
+        selectedDates.end = date;
+    }
+    highlightRange();
+}
+
+function highlightRange() {
+    const days = document.querySelectorAll('.day:not(.header)');
+    days.forEach(day => {
+        const dayDate = new Date(day.dataset.date);
+        if (selectedDates.start && selectedDates.end && dayDate >= selectedDates.start && dayDate <= selectedDates.end) {
+            day.classList.add('selected');
+        } else if (selectedDates.start && !selectedDates.end && dayDate.toISOString().slice(0, 10) === selectedDates.start.toISOString().slice(0, 10)) {
+            day.classList.add('selected');
+        } else {
+            day.classList.remove('selected');
+        }
+    });
 }
