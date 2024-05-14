@@ -9,8 +9,6 @@ function populateDropdowns() {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
 
-    console.log("Populating Dropdowns...");
-
     // Populate the month dropdown
     for (let i = 0; i < 12; i++) {
         const option = document.createElement('option');
@@ -35,18 +33,32 @@ function updateCalendar() {
     const month = document.getElementById('monthSelect').value;
     const year = document.getElementById('yearSelect').value;
     const calendar = document.getElementById('calendar');
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, parseInt(month) + 1, 0);
+    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-    console.log("Updating Calendar for", month, year);
+    calendar.innerHTML = '';  // Clear the calendar
 
-    calendar.innerHTML = '';  // Clear previous calendar cells
+    // Create day of week headers
+    daysOfWeek.forEach(day => {
+        const dayHeader = document.createElement('div');
+        dayHeader.className = 'day header';
+        dayHeader.textContent = day;
+        calendar.appendChild(dayHeader);
+    });
 
-    // Generate days for the calendar
-    for (let day = new Date(firstDay); day <= lastDay; day.setDate(day.getDate() + 1)) {
+    // Calculate the start date to fill the calendar
+    const firstDayOfMonth = new Date(year, month, 1);
+    const firstDay = new Date(firstDayOfMonth);
+    firstDay.setDate(firstDayOfMonth.getDate() - firstDayOfMonth.getDay()); // Adjust to the first Sunday
+
+    // Generate one month's view, plus overflow to fill weeks
+    for (let i = 0; i < 42; i++) {  // Always display 6 weeks
         const dayCell = document.createElement('div');
         dayCell.className = 'day';
-        dayCell.textContent = day.getDate();
+        dayCell.textContent = firstDay.getDate();
+        if (firstDay.getMonth() !== parseInt(month)) {
+            dayCell.classList.add('not-current-month');  // Style days not in the current month differently
+        }
         calendar.appendChild(dayCell);
+        firstDay.setDate(firstDay.getDate() + 1);
     }
 }
