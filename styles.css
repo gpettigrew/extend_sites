@@ -24,9 +24,9 @@ body {
 
 .header {
     font-weight: bold;
-    background: #ddd;
+    background-color: #ccc;
 }
 
-.padding {
-    background: none;
+.not-current-month {
+    color: #666;  /* Lighter text for days not in the current month */
 }
