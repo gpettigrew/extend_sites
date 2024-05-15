@@ -11,6 +11,8 @@ function populateDropdowns() {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
 
+    // Clear existing options and populate month dropdown
+    monthSelect.innerHTML = '';
     for (let i = 0; i < 12; i++) {
         const option = document.createElement('option');
         option.value = i;
@@ -18,6 +20,8 @@ function populateDropdowns() {
         monthSelect.appendChild(option);
     }
 
+    // Clear existing options and populate year dropdown
+    yearSelect.innerHTML = '';
     for (let i = currentYear - 10; i <= currentYear + 10; i++) {
         const option = document.createElement('option');
         option.value = i;
@@ -37,8 +41,10 @@ function updateCalendar() {
     const calendar = document.getElementById('calendar');
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
+    // Clear previous calendar entries
     calendar.innerHTML = '';
 
+    // Create headers for days of the week
     daysOfWeek.forEach(day => {
         const dayHeader = document.createElement('div');
         dayHeader.className = 'day header';
@@ -46,11 +52,12 @@ function updateCalendar() {
         calendar.appendChild(dayHeader);
     });
 
+    // Fill the calendar with day cells
     const firstDayOfMonth = new Date(year, month, 1);
     const firstDay = new Date(firstDayOfMonth);
-    firstDay.setDate(firstDayOfMonth.getDate() - firstDayOfMonth.getDay());
+    firstDay.setDate(firstDayOfMonth.getDate() - firstDayOfMonth.getDay());  // Adjust to the first Sunday
 
-    for (let i = 0; i < 42; i++) {
+    for (let i = 0; i < 42; i++) {  // Always display 6 weeks
         const dayCell = document.createElement('div');
         dayCell.className = 'day';
         dayCell.textContent = firstDay.getDate();
