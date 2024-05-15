@@ -89,7 +89,7 @@ function selectDate(date) {
         selectedDates.end = date;
     }
     highlightRange();
-    console.log(`Selected Date Range: Start = ${selectedDates.start.toISOString().slice(0, 10)}, End = ${selectedDates.end ? selectedDates.end.toISOString().slice(0, 10) : "Not Set"}`);
+    console.log(`Selected Date Range: Start = ${selectedDates.start ? selectedDates.start.toISOString().slice(0, 10) : "Not Set"}, End = ${selectedDates.end ? selectedDates.end.toISOString().slice(0, 10) : "Not Set"}`);
 }
 
 function highlightRange() {
