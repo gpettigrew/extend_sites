@@ -37,5 +37,5 @@ body {
 }
 
 .selected {
-    background-color: #9cf;
+    background-color: #9cf;  /* Highlight color for selected dates */
 }
