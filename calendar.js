@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    console.log("DOM fully loaded and parsed.");
     populateDropdowns();
     updateCalendar();
 });
@@ -6,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 let selectedDates = { start: null, end: null };
 
 function populateDropdowns() {
+    console.log("Populating dropdowns.");
     const monthSelect = document.getElementById('monthSelect');
     const yearSelect = document.getElementById('yearSelect');
     const currentYear = new Date().getFullYear();
@@ -33,9 +35,11 @@ function populateDropdowns() {
     yearSelect.value = currentYear;
     monthSelect.addEventListener('change', updateCalendar);
     yearSelect.addEventListener('change', updateCalendar);
+    console.log("Dropdowns populated.");
 }
 
 function updateCalendar() {
+    console.log("Updating calendar.");
     const month = parseInt(document.getElementById('monthSelect').value);
     const year = parseInt(document.getElementById('yearSelect').value);
     const calendar = document.getElementById('calendar');
@@ -73,9 +77,11 @@ function updateCalendar() {
     }
 
     highlightRange();
+    console.log("Calendar updated.");
 }
 
 function selectDate(date) {
+    console.log(`Date selected: ${date.toISOString().slice(0, 10)}`);
     if (!selectedDates.start || selectedDates.end) {
         selectedDates.start = date;
         selectedDates.end = null;
@@ -87,6 +93,7 @@ function selectDate(date) {
 }
 
 function highlightRange() {
+    console.log("Highlighting range.");
     const days = document.querySelectorAll('.day:not(.header)');
     days.forEach(day => {
         const dayDate = new Date(day.dataset.date);
@@ -98,6 +105,7 @@ function highlightRange() {
             day.classList.remove('selected');
         }
     });
+    console.log("Range highlighted.");
 }
 
 function resetSelection() {
