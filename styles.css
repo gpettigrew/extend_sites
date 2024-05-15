@@ -37,5 +37,6 @@ body {
 }
 
 .selected {
-    background-color: #9cf;  /* Highlight color for selected dates */
+    background-color: #555;  /* Darker highlight color for better visibility */
+    color: white;  /* Change text color for contrast */
 }
