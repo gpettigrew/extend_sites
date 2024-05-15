@@ -33,9 +33,9 @@ body {
 }
 
 .not-current-month {
-    color: #666;  /* Lighter text for days not in the current month */
+    color: #666;
 }
 
 .selected {
-    background-color: #9cf;  /* Highlight color for selected dates */
+    background-color: #9cf;
 }
