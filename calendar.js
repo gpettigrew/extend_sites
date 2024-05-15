@@ -68,6 +68,8 @@ function updateCalendar() {
         dayCell.dataset.date = firstDay.toISOString().slice(0, 10);
         dayCell.onclick = () => selectDate(new Date(firstDay.getTime()));
 
+        console.log(`Creating cell for date: ${firstDay.toISOString().slice(0, 10)}`);  // Log the date being created
+
         if (firstDay.getMonth() !== month) {
             dayCell.classList.add('not-current-month');
         }
