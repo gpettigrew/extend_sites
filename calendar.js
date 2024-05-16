@@ -116,6 +116,16 @@ function highlightRange() {
             }
         }
     });
+    // Ensure start date is highlighted even if only start date is selected
+    if (selectedDates.start && !selectedDates.end) {
+        days.forEach(day => {
+            const dayDate = new Date(day.dataset.date);
+            if (dayDate.getTime() === selectedDates.start.getTime()) {
+                day.classList.add('selected');
+                console.log(`Ensuring start date is highlighted: ${dayDate.toISOString().slice(0, 10)}`);
+            }
+        });
+    }
     console.log("Range highlighted.");
 }
 
