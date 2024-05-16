@@ -66,7 +66,7 @@ function updateCalendar() {
         dayCell.className = 'day';
         dayCell.textContent = firstDay.getDate();
         dayCell.dataset.date = firstDay.toISOString().slice(0, 10);
-        dayCell.onclick = () => selectDate(new Date(firstDay.getTime()));
+        dayCell.onclick = () => selectDate(new Date(firstDay));
 
         console.log(`Creating cell for date: ${firstDay.toISOString().slice(0, 10)}`);  // Log the date being created
 
