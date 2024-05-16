@@ -58,15 +58,18 @@ function updateCalendar() {
 
     // Fill the calendar with day cells
     const firstDayOfMonth = new Date(year, month, 1);
-    let currentDay = new Date(firstDayOfMonth);
-    currentDay.setDate(firstDayOfMonth.getDate() - firstDayOfMonth.getDay());  // Adjust to the first Sunday
+    const firstSunday = new Date(firstDayOfMonth);
+    firstSunday.setDate(firstDayOfMonth.getDate() - firstDayOfMonth.getDay());  // Adjust to the first Sunday
 
     for (let i = 0; i < 42; i++) {  // Always display 6 weeks
+        const currentDay = new Date(firstSunday);
+        currentDay.setDate(firstSunday.getDate() + i);
+
         const dayCell = document.createElement('div');
         dayCell.className = 'day';
         dayCell.textContent = currentDay.getDate();
         dayCell.dataset.date = currentDay.toISOString().slice(0, 10);
-        dayCell.onclick = () => selectDate(new Date(currentDay));
+        dayCell.onclick = () => selectDate(currentDay);
 
         console.log(`Creating cell for date: ${currentDay.toISOString().slice(0, 10)}`);  // Log the date being created
 
@@ -75,7 +78,6 @@ function updateCalendar() {
         }
 
         calendar.appendChild(dayCell);
-        currentDay.setDate(currentDay.getDate() + 1);
     }
 
     highlightRange();
