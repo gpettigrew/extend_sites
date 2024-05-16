@@ -107,10 +107,12 @@ function highlightRange() {
         if (selectedDates.start && selectedDates.end) {
             if (dayDate >= selectedDates.start && dayDate <= selectedDates.end) {
                 day.classList.add('selected');
+                console.log(`Highlighting date: ${dayDate.toISOString().slice(0, 10)}`);
             }
         } else if (selectedDates.start && !selectedDates.end) {
-            if (dayDate.getTime() === selectedDates.start.getTime()) {
+            if (dayDate.toISOString().slice(0, 10) === selectedDates.start.toISOString().slice(0, 10)) {
                 day.classList.add('selected');
+                console.log(`Highlighting single date: ${dayDate.toISOString().slice(0, 10)}`);
             }
         }
     });
