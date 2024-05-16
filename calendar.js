@@ -109,7 +109,7 @@ function highlightRange() {
                 day.classList.add('selected');
             }
         } else if (selectedDates.start && !selectedDates.end) {
-            if (dayDate.toISOString().slice(0, 10) === selectedDates.start.toISOString().slice(0, 10)) {
+            if (dayDate.getTime() === selectedDates.start.getTime()) {
                 day.classList.add('selected');
             }
         }
