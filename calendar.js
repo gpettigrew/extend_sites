@@ -101,12 +101,17 @@ function highlightRange() {
     const days = document.querySelectorAll('.day:not(.header)');
     days.forEach(day => {
         const dayDate = new Date(day.dataset.date);
-        if (selectedDates.start && selectedDates.end && dayDate >= selectedDates.start && dayDate <= selectedDates.end) {
-            day.classList.add('selected');
-        } else if (selectedDates.start && !selectedDates.end && dayDate.toISOString().slice(0, 10) === selectedDates.start.toISOString().slice(0, 10)) {
-            day.classList.add('selected');
-        } else {
-            day.classList.remove('selected');
+        // Clear any previous highlights
+        day.classList.remove('selected');
+
+        if (selectedDates.start && selectedDates.end) {
+            if (dayDate >= selectedDates.start && dayDate <= selectedDates.end) {
+                day.classList.add('selected');
+            }
+        } else if (selectedDates.start && !selectedDates.end) {
+            if (dayDate.toISOString().slice(0, 10) === selectedDates.start.toISOString().slice(0, 10)) {
+                day.classList.add('selected');
+            }
         }
     });
     console.log("Range highlighted.");
