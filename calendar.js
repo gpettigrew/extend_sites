@@ -116,8 +116,9 @@ function highlightRange() {
             }
         }
     });
-    // Ensure start date is highlighted even if only start date is selected
-    if (selectedDates.start && !selectedDates.end) {
+
+    // Ensure the start date is highlighted
+    if (selectedDates.start) {
         days.forEach(day => {
             const dayDate = new Date(day.dataset.date);
             if (dayDate.getTime() === selectedDates.start.getTime()) {
@@ -126,6 +127,7 @@ function highlightRange() {
             }
         });
     }
+
     console.log("Range highlighted.");
 }
 
