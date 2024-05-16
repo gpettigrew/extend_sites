@@ -101,20 +101,18 @@ function highlightRange() {
     const days = document.querySelectorAll('.day:not(.header)');
     days.forEach(day => {
         const dayDate = new Date(day.dataset.date);
+        // Clear any previous highlights
+        day.classList.remove('selected');
 
         if (selectedDates.start && selectedDates.end) {
             if (dayDate >= selectedDates.start && dayDate <= selectedDates.end) {
                 day.classList.add('selected');
                 console.log(`Highlighting range date: ${dayDate.toISOString().slice(0, 10)}`);
-            } else {
-                day.classList.remove('selected');
             }
         } else if (selectedDates.start && !selectedDates.end) {
             if (dayDate.getTime() === selectedDates.start.getTime()) {
                 day.classList.add('selected');
                 console.log(`Highlighting single date: ${dayDate.toISOString().slice(0, 10)}`);
-            } else {
-                day.classList.remove('selected');
             }
         }
     });
