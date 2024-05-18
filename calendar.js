@@ -99,32 +99,34 @@ function selectDate(date) {
 function highlightRange() {
     console.log("Highlighting range.");
     const days = document.querySelectorAll('.day:not(.header)');
+    const start = selectedDates.start ? new Date(selectedDates.start).setHours(0, 0, 0, 0) : null;
+    const end = selectedDates.end ? new Date(selectedDates.end).setHours(0, 0, 0, 0) : null;
+
     days.forEach(day => {
-        const dayDate = new Date(day.dataset.date);
+        const dayDate = new Date(day.dataset.date).setHours(0, 0, 0, 0);
         // Clear any previous highlights
         day.classList.remove('selected');
 
-        if (selectedDates.start && selectedDates.end) {
-            if (dayDate >= selectedDates.start && dayDate <= selectedDates.end) {
+        if (start && end) {
+            if (dayDate >= start && dayDate <= end) {
                 day.classList.add('selected');
-                console.log(`Highlighting range date: ${dayDate.toISOString().slice(0, 10)}`);
+                console.log(`Highlighting range date: ${new Date(dayDate).toISOString().slice(0, 10)}`);
             }
-        } else if (selectedDates.start && !selectedDates.end) {
-            if (dayDate.getTime() === selectedDates.start.getTime()) {
+        } else if (start && !end) {
+            if (dayDate === start) {
                 day.classList.add('selected');
-                console.log(`Highlighting single date: ${dayDate.toISOString().slice(0, 10)}`);
+                console.log(`Highlighting single date: ${new Date(dayDate).toISOString().slice(0, 10)}`);
             }
         }
     });
 
     // Ensure the start date is highlighted
-    if (selectedDates.start) {
-        const startDate = new Date(selectedDates.start);
+    if (start && !end) {
         days.forEach(day => {
-            const dayDate = new Date(day.dataset.date);
-            if (dayDate.getTime() === startDate.getTime()) {
+            const dayDate = new Date(day.dataset.date).setHours(0, 0, 0, 0);
+            if (dayDate === start) {
                 day.classList.add('selected');
-                console.log(`Ensuring start date is highlighted: ${dayDate.toISOString().slice(0, 10)}`);
+                console.log(`Ensuring start date is highlighted: ${new Date(dayDate).toISOString().slice(0, 10)}`);
             }
         });
     }
