@@ -119,9 +119,10 @@ function highlightRange() {
 
     // Ensure the start date is highlighted
     if (selectedDates.start) {
+        const startDate = new Date(selectedDates.start);
         days.forEach(day => {
             const dayDate = new Date(day.dataset.date);
-            if (dayDate.getTime() === selectedDates.start.getTime()) {
+            if (dayDate.getTime() === startDate.getTime()) {
                 day.classList.add('selected');
                 console.log(`Ensuring start date is highlighted: ${dayDate.toISOString().slice(0, 10)}`);
             }
