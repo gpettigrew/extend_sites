@@ -121,12 +121,12 @@ function highlightRange() {
     });
 
     // Ensure the start date is highlighted
-    if (start && !end) {
+    if (start) {
+        const startDate = new Date(start).toISOString().slice(0, 10);
         days.forEach(day => {
-            const dayDate = new Date(day.dataset.date).setHours(0, 0, 0, 0);
-            if (dayDate === start) {
+            if (day.dataset.date === startDate) {
                 day.classList.add('selected');
-                console.log(`Ensuring start date is highlighted: ${new Date(dayDate).toISOString().slice(0, 10)}`);
+                console.log(`Ensuring start date is highlighted: ${startDate}`);
             }
         });
     }
