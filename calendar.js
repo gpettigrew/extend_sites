@@ -69,7 +69,7 @@ function updateCalendar() {
         dayCell.className = 'day';
         dayCell.textContent = currentDay.getDate();
         dayCell.dataset.date = currentDay.toISOString().slice(0, 10);
-        dayCell.onclick = () => selectDate(new Date(currentDay));
+        dayCell.onclick = () => selectDate(currentDay);
 
         console.log(`Creating cell for date: ${currentDay.toISOString().slice(0, 10)}`);  // Log the date being created
 
@@ -86,7 +86,7 @@ function updateCalendar() {
 
 function selectDate(date) {
     console.log(`Date selected: ${date.toISOString()}`);
-    selectedDate = date;
+    selectedDate = new Date(date.setHours(0, 0, 0, 0)); // Set time to start of the day in local time
     highlightSelectedDate();
 }
 
@@ -102,7 +102,7 @@ function highlightSelectedDate() {
         const selectedDateWithTime = new Date(selectedDate);
         selectedDateWithTime.setHours(0, 0, 0, 0);
 
-        console.log(`Comparing: ${dayDate.toISOString()} with ${selectedDateWithTime.toISOString()}`);
+        console.log(`Comparing: ${dayDate.getTime()} with ${selectedDateWithTime.getTime()}`);
 
         // Clear any previous highlights
         day.classList.remove('selected');
