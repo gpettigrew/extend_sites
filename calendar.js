@@ -96,13 +96,13 @@ function highlightSelectedDate() {
 
     days.forEach(day => {
         const dayDate = new Date(day.dataset.date).setHours(0, 0, 0, 0);
+        const selectedDateWithTime = new Date(selectedDate).setHours(0, 0, 0, 0);
         // Clear any previous highlights
         day.classList.remove('selected');
 
-        if (selectedDate && dayDate === selectedDate.setHours(0, 0, 0, 0)) {
+        if (selectedDate && dayDate === selectedDateWithTime) {
             day.classList.add('selected');
             console.log(`Highlighting date: ${new Date(dayDate).toISOString().slice(0, 10)}`);
         }
     });
 }
-
