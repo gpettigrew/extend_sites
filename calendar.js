@@ -68,10 +68,10 @@ function updateCalendar() {
         const dayCell = document.createElement('div');
         dayCell.className = 'day';
         dayCell.textContent = currentDay.getDate();
-        dayCell.dataset.date = currentDay.toISOString().slice(0, 10);
+        dayCell.dataset.date = currentDay.toDateString();  // Use toDateString() for local date
         dayCell.onclick = () => selectDate(currentDay);
 
-        console.log(`Creating cell for date: ${currentDay.toISOString().slice(0, 10)}`);  // Log the date being created
+        console.log(`Creating cell for date: ${currentDay.toDateString()}`);  // Log the date being created
 
         if (currentDay.getMonth() !== month) {
             dayCell.classList.add('not-current-month');
@@ -85,7 +85,7 @@ function updateCalendar() {
 }
 
 function selectDate(date) {
-    console.log(`Date selected: ${date.toISOString()}`);
+    console.log(`Date selected: ${date.toDateString()}`);
     selectedDate = new Date(date.setHours(0, 0, 0, 0)); // Set time to start of the day in local time
     highlightSelectedDate();
 }
@@ -102,15 +102,15 @@ function highlightSelectedDate() {
         const selectedDateWithTime = new Date(selectedDate);
         selectedDateWithTime.setHours(0, 0, 0, 0);
 
-        console.log(`Comparing: ${dayDate.toISOString()} with ${selectedDateWithTime.toISOString()}`);
-        console.log(`Milliseconds: ${dayDate.getTime()} with ${selectedDateWithTime.getTime()}`);
+        console.log(`Comparing: ${dayDate.getTime()} with ${selectedDateWithTime.getTime()}`);
+        console.log(`Comparing (Date Strings): ${dayDate.toDateString()} with ${selectedDateWithTime.toDateString()}`);
 
         // Clear any previous highlights
         day.classList.remove('selected');
 
         if (selectedDate && dayDate.getTime() === selectedDateWithTime.getTime()) {
             day.classList.add('selected');
-            console.log(`Highlighting date: ${dayDate.toISOString()}`);
+            console.log(`Highlighting date: ${dayDate.toDateString()}`);
         }
     });
 }
