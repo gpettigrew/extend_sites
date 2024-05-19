@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
     updateCalendar();
 });
 
+let selectedDate = null;
+
 function populateDropdowns() {
     console.log("Populating dropdowns.");
     const monthSelect = document.getElementById('monthSelect');
@@ -67,6 +69,7 @@ function updateCalendar() {
         dayCell.className = 'day';
         dayCell.textContent = currentDay.getDate();
         dayCell.dataset.date = currentDay.toISOString().slice(0, 10);
+        dayCell.onclick = () => selectDate(new Date(currentDay));
 
         console.log(`Creating cell for date: ${currentDay.toISOString().slice(0, 10)}`);  // Log the date being created
 
@@ -77,5 +80,29 @@ function updateCalendar() {
         calendar.appendChild(dayCell);
     }
 
+    highlightSelectedDate();
     console.log("Calendar updated.");
 }
+
+function selectDate(date) {
+    console.log(`Date selected: ${date.toISOString().slice(0, 10)}`);
+    selectedDate = date;
+    highlightSelectedDate();
+}
+
+function highlightSelectedDate() {
+    console.log("Highlighting selected date.");
+    const days = document.querySelectorAll('.day:not(.header)');
+
+    days.forEach(day => {
+        const dayDate = new Date(day.dataset.date).setHours(0, 0, 0, 0);
+        // Clear any previous highlights
+        day.classList.remove('selected');
+
+        if (selectedDate && dayDate === selectedDate.setHours(0, 0, 0, 0)) {
+            day.classList.add('selected');
+            console.log(`Highlighting date: ${new Date(dayDate).toISOString().slice(0, 10)}`);
+        }
+    });
+}
+
