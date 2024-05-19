@@ -102,7 +102,8 @@ function highlightSelectedDate() {
         const selectedDateWithTime = new Date(selectedDate);
         selectedDateWithTime.setHours(0, 0, 0, 0);
 
-        console.log(`Comparing: ${dayDate.getTime()} with ${selectedDateWithTime.getTime()}`);
+        console.log(`Comparing: ${dayDate.toISOString()} with ${selectedDateWithTime.toISOString()}`);
+        console.log(`Milliseconds: ${dayDate.getTime()} with ${selectedDateWithTime.getTime()}`);
 
         // Clear any previous highlights
         day.classList.remove('selected');
