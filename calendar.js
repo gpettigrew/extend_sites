@@ -86,7 +86,8 @@ function updateCalendar() {
 
 function selectDate(date) {
     console.log(`Date selected: ${date.toISOString()}`);
-    selectedDate = date;
+    selectedDate = new Date(date);
+    selectedDate.setHours(0, 0, 0, 0);  // Set the time to 00:00:00 for accurate comparison
     highlightSelectedDate();
 }
 
@@ -95,17 +96,17 @@ function highlightSelectedDate() {
     const days = document.querySelectorAll('.day:not(.header)');
 
     days.forEach(day => {
-        const dayDate = new Date(day.dataset.date).setHours(0, 0, 0, 0);
-        const selectedDateWithTime = new Date(selectedDate).setHours(0, 0, 0, 0);
+        const dayDate = new Date(day.dataset.date);
+        dayDate.setHours(0, 0, 0, 0);  // Set the time to 00:00:00 for accurate comparison
 
-        console.log(`Comparing: ${new Date(dayDate).toISOString()} with ${new Date(selectedDateWithTime).toISOString()}`);
+        console.log(`Comparing: ${dayDate.toISOString()} with ${selectedDate.toISOString()}`);
 
         // Clear any previous highlights
         day.classList.remove('selected');
 
-        if (selectedDate && dayDate === selectedDateWithTime) {
+        if (selectedDate && dayDate.getTime() === selectedDate.getTime()) {
             day.classList.add('selected');
-            console.log(`Highlighting date: ${new Date(dayDate).toISOString()}`);
+            console.log(`Highlighting date: ${dayDate.toISOString()}`);
         }
     });
 }
