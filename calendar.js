@@ -96,6 +96,13 @@ function selectDate(date) {
     console.log(`Selected Date Range: Start = ${selectedDates.start ? selectedDates.start.toISOString().slice(0, 10) : "Not Set"}, End = ${selectedDates.end ? selectedDates.end.toISOString().slice(0, 10) : "Not Set"}`);
 }
 
+// Utility function to compare dates accurately
+function isSameDate(date1, date2) {
+    return date1.getFullYear() === date2.getFullYear() &&
+           date1.getMonth() === date2.getMonth() &&
+           date1.getDate() === date2.getDate();
+}
+
 function highlightRange() {
     console.log("Highlighting range.");
     const days = document.querySelectorAll('.day:not(.header)');
@@ -115,7 +122,7 @@ function highlightRange() {
                 console.log(`Highlighting range date: ${new Date(dayDate).toISOString().slice(0, 10)}`);
             }
         } else if (start && !end) {
-            if (dayDate === start) {
+            if (isSameDate(new Date(day.dataset.date), new Date(start))) {
                 day.classList.add('selected');
                 console.log(`Highlighting single date: ${new Date(dayDate).toISOString().slice(0, 10)}`);
             }
@@ -126,7 +133,7 @@ function highlightRange() {
     if (start && !end) {
         days.forEach(day => {
             const dayDate = new Date(day.dataset.date).setHours(0, 0, 0, 0);
-            if (dayDate === start) {
+            if (isSameDate(new Date(day.dataset.date), new Date(start))) {
                 day.classList.add('selected');
                 console.log(`Ensuring start date is highlighted: ${new Date(dayDate).toISOString().slice(0, 10)}`);
             }
