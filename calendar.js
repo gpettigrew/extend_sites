@@ -4,8 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
     updateCalendar();
 });
 
-let selectedDates = { start: null, end: null };
-
 function populateDropdowns() {
     console.log("Populating dropdowns.");
     const monthSelect = document.getElementById('monthSelect');
@@ -69,7 +67,6 @@ function updateCalendar() {
         dayCell.className = 'day';
         dayCell.textContent = currentDay.getDate();
         dayCell.dataset.date = currentDay.toISOString().slice(0, 10);
-        dayCell.onclick = () => selectDate(new Date(currentDay));
 
         console.log(`Creating cell for date: ${currentDay.toISOString().slice(0, 10)}`);  // Log the date being created
 
@@ -80,65 +77,5 @@ function updateCalendar() {
         calendar.appendChild(dayCell);
     }
 
-    highlightRange();
     console.log("Calendar updated.");
-}
-
-function selectDate(date) {
-    console.log(`Date selected: ${date.toISOString().slice(0, 10)}`);
-    if (!selectedDates.start || selectedDates.end) {
-        selectedDates.start = date;
-        selectedDates.end = null;
-        console.log(`Start date set to: ${selectedDates.start.toISOString().slice(0, 10)}`);
-    } else {
-        selectedDates.end = date;
-        console.log(`End date set to: ${selectedDates.end.toISOString().slice(0, 10)}`);
-    }
-    highlightRange();
-    console.log(`Selected Date Range: Start = ${selectedDates.start ? selectedDates.start.toISOString().slice(0, 10) : "Not Set"}, End = ${selectedDates.end ? selectedDates.end.toISOString().slice(0, 10) : "Not Set"}`);
-}
-
-// Utility function to compare dates accurately
-function isSameDate(date1, date2) {
-    const isSame = date1.getFullYear() === date2.getFullYear() &&
-                   date1.getMonth() === date2.getMonth() &&
-                   date1.getDate() === date2.getDate();
-    console.log(`Comparing dates ${date1.toISOString().slice(0, 10)} and ${date2.toISOString().slice(0, 10)}: ${isSame ? 'Same' : 'Different'}`);
-    return isSame;
-}
-
-function highlightRange() {
-    console.log("Highlighting range.");
-    const days = document.querySelectorAll('.day:not(.header)');
-    const start = selectedDates.start ? new Date(selectedDates.start).setHours(0, 0, 0, 0) : null;
-    const end = selectedDates.end ? new Date(selectedDates.end).setHours(0, 0, 0, 0) : null;
-
-    console.log(`Highlighting range from ${start ? new Date(start).toISOString().slice(0, 10) : "Not Set"} to ${end ? new Date(end).toISOString().slice(0, 10) : "Not Set"}`);
-
-    days.forEach(day => {
-        const dayDate = new Date(day.dataset.date).setHours(0, 0, 0, 0);
-        // Clear any previous highlights
-        day.classList.remove('selected');
-
-        if (start && end) {
-            if (dayDate >= start && dayDate <= end) {
-                day.classList.add('selected');
-                console.log(`Highlighting range date: ${new Date(dayDate).toISOString().slice(0, 10)}`);
-            }
-        } else if (start && !end) {
-            if (isSameDate(new Date(day.dataset.date), new Date(start))) {
-                day.classList.add('selected');
-                console.log(`Highlighting single date: ${new Date(dayDate).toISOString().slice(0, 10)}`);
-            }
-        }
-    });
-
-    console.log("Range highlighted.");
-}
-
-function resetSelection() {
-    selectedDates.start = null;
-    selectedDates.end = null;
-    highlightRange();
-    console.log("Date selection reset.");
 }
