@@ -121,7 +121,7 @@ function highlightRange() {
     });
 
     // Ensure the start date is highlighted
-    if (start && !end) {
+    if (start) {
         days.forEach(day => {
             const dayDate = new Date(day.dataset.date).setHours(0, 0, 0, 0);
             if (dayDate === start) {
