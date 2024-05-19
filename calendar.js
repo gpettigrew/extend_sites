@@ -120,17 +120,6 @@ function highlightRange() {
         }
     });
 
-    // Ensure the start date is highlighted
-    if (start) {
-        const startDate = new Date(start).toISOString().slice(0, 10);
-        days.forEach(day => {
-            if (day.dataset.date === startDate) {
-                day.classList.add('selected');
-                console.log(`Ensuring start date is highlighted: ${startDate}`);
-            }
-        });
-    }
-
     console.log("Range highlighted.");
 }
 
