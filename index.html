@@ -1,16 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Simple Custom Calendar</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        .day {
+            display: inline-block;
+            width: 14%;
+            text-align: center;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        .header {
+            font-weight: bold;
+            background-color: #f0f0f0;
+        }
+        .not-current-month {
+            background-color: #e0e0e0;
+        }
+        .selected {
+            background-color: #add8e6;
+        }
+    </style>
 </head>
 <body>
-    <div id="controls">
-        <select id="monthSelect"></select>
-        <select id="yearSelect"></select>
-        <button onclick="resetSelection()">Reset</button>
-    </div>
+    <select id="monthSelect"></select>
+    <select id="yearSelect"></select>
     <div id="calendar"></div>
     <script src="calendar.js"></script>
 </body>
