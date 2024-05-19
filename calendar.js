@@ -102,6 +102,8 @@ function highlightRange() {
     const start = selectedDates.start ? new Date(selectedDates.start).setHours(0, 0, 0, 0) : null;
     const end = selectedDates.end ? new Date(selectedDates.end).setHours(0, 0, 0, 0) : null;
 
+    console.log(`Highlighting range from ${start ? new Date(start).toISOString().slice(0, 10) : "Not Set"} to ${end ? new Date(end).toISOString().slice(0, 10) : "Not Set"}`);
+
     days.forEach(day => {
         const dayDate = new Date(day.dataset.date).setHours(0, 0, 0, 0);
         // Clear any previous highlights
@@ -121,7 +123,7 @@ function highlightRange() {
     });
 
     // Ensure the start date is highlighted
-    if (start) {
+    if (start && !end) {
         days.forEach(day => {
             const dayDate = new Date(day.dataset.date).setHours(0, 0, 0, 0);
             if (dayDate === start) {
