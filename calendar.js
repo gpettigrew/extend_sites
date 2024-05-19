@@ -98,9 +98,11 @@ function selectDate(date) {
 
 // Utility function to compare dates accurately
 function isSameDate(date1, date2) {
-    return date1.getFullYear() === date2.getFullYear() &&
-           date1.getMonth() === date2.getMonth() &&
-           date1.getDate() === date2.getDate();
+    const isSame = date1.getFullYear() === date2.getFullYear() &&
+                   date1.getMonth() === date2.getMonth() &&
+                   date1.getDate() === date2.getDate();
+    console.log(`Comparing dates ${date1.toISOString().slice(0, 10)} and ${date2.toISOString().slice(0, 10)}: ${isSame ? 'Same' : 'Different'}`);
+    return isSame;
 }
 
 function highlightRange() {
