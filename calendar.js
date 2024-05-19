@@ -89,8 +89,10 @@ function selectDate(date) {
     if (!selectedDates.start || selectedDates.end) {
         selectedDates.start = date;
         selectedDates.end = null;
+        console.log(`Start date set to: ${selectedDates.start.toISOString().slice(0, 10)}`);
     } else {
         selectedDates.end = date;
+        console.log(`End date set to: ${selectedDates.end.toISOString().slice(0, 10)}`);
     }
     highlightRange();
     console.log(`Selected Date Range: Start = ${selectedDates.start ? selectedDates.start.toISOString().slice(0, 10) : "Not Set"}, End = ${selectedDates.end ? selectedDates.end.toISOString().slice(0, 10) : "Not Set"}`);
@@ -130,17 +132,6 @@ function highlightRange() {
             }
         }
     });
-
-    // Ensure the start date is highlighted
-    if (start && !end) {
-        days.forEach(day => {
-            const dayDate = new Date(day.dataset.date).setHours(0, 0, 0, 0);
-            if (isSameDate(new Date(day.dataset.date), new Date(start))) {
-                day.classList.add('selected');
-                console.log(`Ensuring start date is highlighted: ${new Date(dayDate).toISOString().slice(0, 10)}`);
-            }
-        });
-    }
 
     console.log("Range highlighted.");
 }
