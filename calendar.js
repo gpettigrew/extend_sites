@@ -92,6 +92,8 @@ function selectDate(date) {
 
 function highlightSelectedDate() {
     console.log("Highlighting selected date.");
+    if (!selectedDate) return; // Ensure selectedDate is not null
+
     const days = document.querySelectorAll('.day:not(.header)');
 
     days.forEach(day => {
