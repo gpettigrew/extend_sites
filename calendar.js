@@ -97,7 +97,7 @@ function highlightSelectedDate() {
     days.forEach(day => {
         const dayDate = new Date(day.dataset.date).setHours(0, 0, 0, 0);
         const selectedDateWithTime = new Date(selectedDate).setHours(0, 0, 0, 0);
-        
+
         console.log(`Comparing: ${new Date(dayDate).toISOString()} with ${new Date(selectedDateWithTime).toISOString()}`);
 
         // Clear any previous highlights
