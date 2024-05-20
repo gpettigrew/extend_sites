@@ -64,6 +64,7 @@ function updateCalendar() {
     for (let i = 0; i < 42; i++) {  // Always display 6 weeks
         const currentDay = new Date(firstSunday);
         currentDay.setDate(firstSunday.getDate() + i);
+        currentDay.setHours(0, 0, 0, 0); // Ensure time is set to start of day
 
         const dayCell = document.createElement('div');
         dayCell.className = 'day';
@@ -71,7 +72,7 @@ function updateCalendar() {
         dayCell.dataset.date = currentDay.toISOString().slice(0, 10);
         dayCell.onclick = () => selectDate(currentDay);
 
-        console.log(`Creating cell for date: ${currentDay.toISOString().slice(0, 10)}`);  // Log the date being created
+        console.log(`Creating cell for date: ${currentDay.toDateString()}`);  // Log the date being created
 
         if (currentDay.getMonth() !== month) {
             dayCell.classList.add('not-current-month');
@@ -85,8 +86,9 @@ function updateCalendar() {
 }
 
 function selectDate(date) {
-    console.log(`Date selected: ${date.toISOString()}`);
-    selectedDate = new Date(date.setHours(0, 0, 0, 0)); // Set time to start of the day in local time
+    console.log(`Date selected: ${date.toDateString()}`);
+    selectedDate = new Date(date);
+    selectedDate.setHours(0, 0, 0, 0); // Set time to start of the day in local time
     highlightSelectedDate();
 }
 
@@ -99,17 +101,16 @@ function highlightSelectedDate() {
     days.forEach(day => {
         const dayDate = new Date(day.dataset.date);
         dayDate.setHours(0, 0, 0, 0);
-        const selectedDateWithTime = new Date(selectedDate);
-        selectedDateWithTime.setHours(0, 0, 0, 0);
 
-        console.log(`Comparing: ${dayDate.getTime()} (${dayDate.toISOString()}) with ${selectedDateWithTime.getTime()} (${selectedDateWithTime.toISOString()})`);
+        console.log(`Comparing: ${dayDate.getTime()} with ${selectedDate.getTime()}`);
+        console.log(`Comparing (Date Strings): ${dayDate.toDateString()} with ${selectedDate.toDateString()}`);
 
         // Clear any previous highlights
         day.classList.remove('selected');
 
-        if (selectedDate && dayDate.getTime() === selectedDateWithTime.getTime()) {
+        if (selectedDate && dayDate.getTime() === selectedDate.getTime()) {
             day.classList.add('selected');
-            console.log(`Highlighting date: ${dayDate.toISOString()}`);
+            console.log(`Highlighting date: ${dayDate.toDateString()}`);
         }
     });
 }
