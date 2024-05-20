@@ -58,8 +58,10 @@ function updateCalendar() {
 
     // Fill the calendar with day cells
     const firstDayOfMonth = new Date(year, month, 1);
+    firstDayOfMonth.setHours(0, 0, 0, 0); // Ensure time is set to start of day
     const firstSunday = new Date(firstDayOfMonth);
     firstSunday.setDate(firstDayOfMonth.getDate() - firstDayOfMonth.getDay());  // Adjust to the first Sunday
+    firstSunday.setHours(0, 0, 0, 0); // Ensure time is set to start of day
 
     for (let i = 0; i < 42; i++) {  // Always display 6 weeks
         const currentDay = new Date(firstSunday);
@@ -70,9 +72,9 @@ function updateCalendar() {
         dayCell.className = 'day';
         dayCell.textContent = currentDay.getDate();
         dayCell.dataset.date = currentDay.toISOString().slice(0, 10);
-        dayCell.onclick = () => selectDate(currentDay);
+        dayCell.onclick = () => selectDate(new Date(currentDay));
 
-        console.log(`Creating cell for date: ${currentDay.toDateString()}`);  // Log the date being created
+        console.log(`Creating cell for date: ${currentDay.toDateString()} (${currentDay.getTime()})`);  // Log the date being created
 
         if (currentDay.getMonth() !== month) {
             dayCell.classList.add('not-current-month');
@@ -86,9 +88,9 @@ function updateCalendar() {
 }
 
 function selectDate(date) {
-    console.log(`Date selected: ${date.toDateString()}`);
+    date.setHours(0, 0, 0, 0); // Ensure time is set to start of day
     selectedDate = new Date(date);
-    selectedDate.setHours(0, 0, 0, 0); // Set time to start of the day in local time
+    console.log(`Date selected: ${selectedDate.toDateString()} (${selectedDate.getTime()})`);
     highlightSelectedDate();
 }
 
@@ -102,15 +104,14 @@ function highlightSelectedDate() {
         const dayDate = new Date(day.dataset.date);
         dayDate.setHours(0, 0, 0, 0);
 
-        console.log(`Comparing: ${dayDate.getTime()} with ${selectedDate.getTime()}`);
-        console.log(`Comparing (Date Strings): ${dayDate.toDateString()} with ${selectedDate.toDateString()}`);
+        console.log(`Comparing: ${dayDate.getTime()} (${dayDate.toDateString()}) with ${selectedDate.getTime()} (${selectedDate.toDateString()})`);
 
         // Clear any previous highlights
         day.classList.remove('selected');
 
         if (selectedDate && dayDate.getTime() === selectedDate.getTime()) {
             day.classList.add('selected');
-            console.log(`Highlighting date: ${dayDate.toDateString()}`);
+            console.log(`Highlighting date: ${dayDate.toDateString()} (${dayDate.getTime()})`);
         }
     });
 }
