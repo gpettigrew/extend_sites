@@ -89,9 +89,8 @@ function updateCalendar() {
 
 function selectDate(date) {
     date.setHours(0, 0, 0, 0); // Ensure time is set to start of day
-    date.setDate(date.getDate() - 1); // Subtract one day
     selectedDate = new Date(date);
-    console.log(`Date selected (after subtraction): ${selectedDate.toDateString()} (${selectedDate.getTime()})`);
+    console.log(`Date selected: ${selectedDate.toDateString()} (${selectedDate.getTime()})`);
     highlightSelectedDate();
 }
 
